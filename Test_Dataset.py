@@ -162,8 +162,6 @@ for i_dataset in range(4):
     optimizer = torch.optim.Adam(model.parameters(), lr=lr) 
     model.train()
 
-    loss_train_dict = defaultdict(list)
-    loss_val_dict = defaultdict(list)
     for t in range(n_epochs):
         print(f"--------------------------------\nEpoch {t+1}")
         # gradient updates
@@ -281,63 +279,6 @@ with PdfPages(f"{dir_name}/Plot_Losses_Test_Dataset.pdf") as pdf:
         ax[1, 1].axvline(x=model.best_epoc_mse+1, label="best epoch mse", color='lime', linewidth=1.5, linestyle='dotted', alpha=0.6)
         ax[1, 1].set_xlabel("Epoch")
         ax[1, 1].set_ylabel("Loss: " + key + " 400k model")
-
-        pdf.savefig(fig) 
-        plt.close(fig)
-
-
-        fig, ax = plt.subplots(2, 2, figsize=(8.27, 11.69)) 
-        if (len(loss_train_50k_list)>100):
-            ax[0, 0].plot(np.arange(100, len(loss_train_50k_list)+1, 1), loss_train_50k_list[100:], label=key, alpha=0.8)
-            ax[0, 0].plot(np.arange(100, len(loss_val_50k_list)+1, 1), loss_val_50k_list[100:], label=key + " val", alpha=0.8)
-            ax[0, 0].axvline(x=model.best_epoc_tot+1, label="best epoch loss tot", color='olive', linewidth=1.5, linestyle='dotted', alpha=0.6)
-            ax[0, 0].axvline(x=model.best_epoc_mse+1, label="best epoch mse", color='lime', linewidth=1.5, linestyle='dotted', alpha=0.6)
-            n_xticks = len(loss_train_50k_list)//100 
-            xticks = np.linspace(100, (len(loss_train_50k_list)//100)*100, n_xticks) 
-            ax[0, 0].set_xticks(ticks=xticks)
-            ax[0, 0].set_xlabel("Epoch")
-            ax[0, 0].set_ylabel("Loss: " + key + " 50k model")
-        else:
-            ax[0, 0].remove()
-
-        if (len(loss_train_100k_list)>100):
-            ax[0, 1].plot(np.arange(100, len(loss_train_100k_list)+1, 1), loss_train_100k_list[100:], label=key, alpha=0.8)
-            ax[0, 1].plot(np.arange(100, len(loss_val_100k_list)+1, 1), loss_val_100k_list[100:], label=key + " val", alpha=0.8)
-            ax[0, 1].axvline(x=model.best_epoc_tot+1, label="best epoch loss tot", color='olive', linewidth=1.5, linestyle='dotted', alpha=0.6)
-            ax[0, 1].axvline(x=model.best_epoc_mse+1, label="best epoch mse", color='lime', linewidth=1.5, linestyle='dotted', alpha=0.6)
-            n_xticks = len(loss_train_100k_list)//100 
-            xticks = np.linspace(100, (len(loss_train_100k_list)//100)*100, n_xticks) 
-            ax[0, 1].set_xticks(ticks=xticks)
-            ax[0, 1].set_xlabel("Epoch")
-            ax[0, 1].set_ylabel("Loss: " + key + " 100k model")
-        else:
-            ax[0, 1].remove()
-
-        if (len(loss_train_200k_list)>100):
-            ax[1, 0].plot(np.arange(100, len(loss_train_200k_list)+1, 1), loss_train_200k_list[100:], label=key, alpha=0.8)
-            ax[1, 0].plot(np.arange(100, len(loss_val_200k_list)+1, 1), loss_val_200k_list[100:], label=key + " val", alpha=0.8)
-            ax[1, 0].axvline(x=model.best_epoc_tot+1, label="best epoch loss tot", color='olive', linewidth=1.5, linestyle='dotted', alpha=0.6)
-            ax[1, 0].axvline(x=model.best_epoc_mse+1, label="best epoch mse", color='lime', linewidth=1.5, linestyle='dotted', alpha=0.6)
-            n_xticks = len(loss_train_200k_list)//100 
-            xticks = np.linspace(100, (len(loss_train_200k_list)//100)*100, n_xticks) 
-            ax[1, 0].set_xticks(ticks=xticks)
-            ax[1, 0].set_xlabel("Epoch")
-            ax[1, 0].set_ylabel("Loss: " + key + " 200k model")
-        else:
-            ax[1, 0].remove()
-
-        if (len(loss_train_400k_list)>100):
-            ax[1, 1].plot(np.arange(100, len(loss_train_400k_list)+1, 1), loss_train_400k_list[100:], label=key, alpha=0.8)
-            ax[1, 1].plot(np.arange(100, len(loss_val_400k_list)+1, 1), loss_val_400k_list[100:], label=key + " val", alpha=0.8)
-            ax[1, 1].axvline(x=model.best_epoc_tot+1, label="best epoch loss tot", color='olive', linewidth=1.5, linestyle='dotted', alpha=0.6)
-            ax[1, 1].axvline(x=model.best_epoc_mse+1, label="best epoch mse", color='lime', linewidth=1.5, linestyle='dotted', alpha=0.6)
-            n_xticks = len(loss_train_400k_list)//100 
-            xticks = np.linspace(100, (len(loss_train_400k_list)//100)*100, n_xticks) 
-            ax[1, 1].set_xticks(ticks=xticks)
-            ax[1, 1].set_xlabel("Epoch")
-            ax[1, 1].set_ylabel("Loss: " + key + " 400k model")
-        else:
-            ax[1, 1].remove()
 
         pdf.savefig(fig) 
         plt.close(fig)
