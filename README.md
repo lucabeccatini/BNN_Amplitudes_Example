@@ -5,7 +5,8 @@ Example of a Bayesian Neural Network for amplitudes regression
 - [About the project](#about-the-project)
     - [Bayesian NN](#bayesian-NN)
     - [Amplitude regression](#amplitude-regression)
-- [Main implementation]
+- [Implementation](#implementation)
+    - [Model implementation](#model-implementation)
 
 
 ## About the project
@@ -62,13 +63,24 @@ We define the predictive mean as:
 ```math
 \mu_i = \frac{1}{N} \sum_j^N \mu_{i, j} \quad .
 ```
-The predictive standard deviation $\sigma_i$​ is defined as the combination of two sources of uncertainty: model uncertainty, $\sigma_{model_i}, ​and stochastic uncertainty, $\sigma_{stoch_i}$. The total predictive variance is given by:The model and stochastic uncertainty are respectively defined as:
+The predictive standard deviation $\sigma_i$​ is defined as the combination of two sources of uncertainty: model uncertainty, $\sigma_{model_i}$, ​and stochastic uncertainty, $\sigma_{stoch_i}$. The model and stochastic uncertainty are respectively defined as:
 ```math
 \sigma_{model_i} = \frac{1}{N} \sum_j^N (\mu_{i} - \mu_{i, j})^2
 ```
 ```math
 \sigma_{stoch_i} = \frac{1}{N} \sum_j^N \sigma_{i,j}^2 \quad .
 ```
+$\sigma_{model_i}$ represents the statical uncertainty in the prediction. It vanishes in the limit of perfect trainig.
+$\sigma_{stoch_i}$ represents the systematic uncertainty in the prediction. It can reflect poor or noisy training data, non-optimal network architecture choice or hyper parameters tuning. In the limit of perfect training it approaches a plateau. 
 
 
 
+## Implementation
+### Model implemtation 
+The bayesian layer and the bayesian model are defined in the BNN_model.py file. These classes are taken and modified from https://github.com/heidelberg-hepml/ml-tutorials.git . The implemented bayesian linear layer uses the local reparametrization trick introduced in arXiv:1506.02557v2. This trick guarantees a more efficient estimator for the training loss, which has lower computational complexity and variance, and it can be trivially parallelized.
+
+The KL and NLL losses corresponds to the losses obtained above with the gaussian approximation for both prior and variational distribution.
+
+
+### Main implementation
+An example of a simple training and evaluation over a test dataset of the BNN model described before is implemented in the BNN_main.py file. 
