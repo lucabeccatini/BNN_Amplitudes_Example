@@ -94,8 +94,12 @@ The input to the BNN consists of the 4-momenta of the particles involved in the 
 The amplitudes, which are the true values of the network output, are preprocessed trough logarithm and standardization, such that: $y_i = \frac{log(A_i) - mean \left(log(A_i) \right)}{std \left( A_i \right)}$. 
 
 The plots below show some of the plots produced by BNN_main.py . In the following plot we can observe the total training and validation losses. We can observe that traing is interrupted by the EarlyStopper function after a period equal to 100 epochs with no improvements in the mse validation loss.
-<img src="Images/BNN_main_loss_tot.png" align="center" width="700" height="auto"/>
+\
+<img src="Images/BNN_main_loss_tot.png" align="center" width="400" height="auto"/> 
+\
+\
 In the following plots we can observe respectively the normalized network outputs compared to their true values and their accuracy, defined as $\delta = \frac{\mu_i - y_i}{y_i}$. We can observe that the network reaches an high accuracy. 
+\
 <img src="Images/BNN_main_amp_norm.png" align="center" width="400" height="auto"/>
 <img src="Images/BNN_main_acc_norm.png" align="center" width="400" height="auto"/>
 
@@ -107,11 +111,18 @@ In the following 2 example tests, we use the model defined in BNN_main.py to stu
 
 ### Dataset test
 Here we test 4 different training datasets with lenght respectively equal to: 50000, 100000, 200000 and 400000. Differently from the previous plots, here the outputs are at the amplitude level and not normalized. As we could expect the accuracy of the model lower events is worse, in particularly for the less populated areas (small and large amplitudes). 
+\
 <img src="Images/BNN_Dataset_amp_ori.png" align="center" width="400" height="auto"/>
+\
+\
 Similarly, the accuracy plot shows a big difference between the "50k" model and the others, while this difference tends to decrease with larger datasets.  
+\
 <img src="Images/BNN_Dataset_acc_ori.png" align="center" width="400" height="auto"/>
+\
+\
 In the following table we observe the resume of the results achieved by each model. As we said, this table shows that the accuracy tends to improve with the increase lenght of the dataset and to converge to a given value. Moreover, both uncertainties tend to improve (decrese) with the increasing of the training lenght. For the model (statistical) uncertainty this is expected because, a larger training dataset implies a better training. For the stochastic (systematic) uncertainty, since the model are identical, this can be associated with improvemnt of the data quality, due to more populated phase-space. 
-<img src="Images/BNN_Dataset_table.png" align="center" width="400" height="auto"/>
+\
+<img src="Images/BNN_Dataset_table.png" align="center" width="600" height="auto"/>
 
 
 ### Data boost augmentation test
@@ -120,8 +131,15 @@ Here we test data augmentation through physical information. We know that scatte
 We tested 3 different training dataset, called: "400", given by 400000 non-augmentated events, as a standard case, "boost_1x4", given by 400000 events, composed by 100000 non-augemented events and 300000 augemented events (obtained by the non-augmented 100000 events), "boost_4x4" composed by 1600000 events in the same way as "boost_1x4" but with the same non-augmented events of "400" dataset. 
 
 From the amplitudes plot we observe that all 3 model, achieved a high precision, with similar distribution.
+\
 <img src="Images/BNN_DataBoost_amp_ori.png" align="center" width="400" height="auto"/>
+\
+\
 In the accuracy plots, we can observe that the "400" model has a similar accuracy to the "boost_1x4" model, which is obtained by a model with 1/4 its original training sample and then augmentated. While "boost_4x4" reaches slightly more accurate predictions. 
+\
 <img src="Images/BNN_DataBoost_acc_ori.png" align="center" width="400" height="auto"/>
+\
+\
 Finally, in the following table, we observe that similarly to the accuracy, also the uncertainties tend to improve for augmented dataset, suggesting that the applied transformation tends to populate also less populated regions, similarly to sample additionally events.
-<img src="Images/BNN_DataBoost_table.png" align="center" width="400" height="auto"/>
+\
+<img src="Images/BNN_DataBoost_table.png" align="center" width="600" height="auto"/>
