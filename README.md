@@ -3,8 +3,8 @@ Example of a Bayesian Neural Network for amplitudes regression
 
 ## Table of contents
 - [About the project](#about-the-project)
-    - [Bayesian NN]
-    - [Amplitude regression]
+    - [Bayesian NN](#bayesian-NN)
+    - [Amplitude regression](#amplitude-regression)
 - [Main implementation]
 
 
@@ -50,4 +50,25 @@ Similarly, using a gaussian approximation for the variational distribution, we c
 ```math
 NLL(y_i, \mu_i, \sigma_i) \approx \frac{(\mu_i - y_i)^2}{2\sigma_i^2} + log(\sigma_i) \quad .
 ```
+
+
+### Amplitude regression
+Amplitude emulation is a regression problem where the input are the 4-momenta of each particle partecipating to the scattering and the result is the amplitude of the corresponding scattering event. 
+To evaluate the prediction over the test dataset, we sample the network parameters $N$ times from the BNN and predict the output for each sample, obtaining $N$ predictions for each test event. 
+The output of the sampled $j$ BNN (with fixed $\theta$ parameters) for input $x_i$ are $(\mu_{i, j}, \sigma_{i, j})$. 
+
+We can use the sampled distribution of $\mu_{i, j}, \sigma_{i, j}$ to define a predictive mean $\mu_i$ and a predictive standard deviation $\sigma_i$ for the $i$ event. 
+We define the predictive mean as:
+```math
+\mu_i = \frac{1}{N} \sum_j^N \mu_{i, j} \quad .
+```
+The predictive standard deviation $\sigma_i$​ is defined as the combination of two sources of uncertainty: model uncertainty, $\sigma_{model_i}, ​and stochastic uncertainty, $\sigma_{stoch_i}$. The total predictive variance is given by:The model and stochastic uncertainty are respectively defined as:
+```math
+\sigma_{model_i} = \frac{1}{N} \sum_j^N (\mu_{i} - \mu_{i, j})^2
+```
+```math
+\sigma_{stoch_i} = \frac{1}{N} \sum_j^N \sigma_{i,j}^2 \quad .
+```
+
+
 
