@@ -20,7 +20,7 @@ seed_all = 3                 # seed for reproducibility
 data_name = "ddx_Z2g"       # name of the dataset
 #data_name = "ddx_Z3g"       # name of the dataset
 
-test_name = f"{data_name}_4x128_LogKin"
+test_name = f"{data_name}_3x128_KinInv"
 
 # number of total particles in the event
 if data_name=="ddx_Z2g":
@@ -28,7 +28,7 @@ if data_name=="ddx_Z2g":
 elif data_name=="ddx_Z3g":
     n_part = 6 
 
-path_info = "/home/lb_linux/BayesianNN_Amplitudes"               # path to dataset.txt
+path_info = "/home/lb_linux/BNN_Amplitudes_Example"               # path to dataset.txt
 path_output = path_info                                          # path to output directory
 
 
@@ -100,7 +100,7 @@ val_dataloader = DataLoader(val, batch_size=batch_size, shuffle=True)
 # model parameters
 net_training_size = train.shape[0]
 net_input_dim = train.shape[1] - 1     # number of input features, -1 because last column is the output 
-net_inner_layers = [128, 128, 128, 128] 
+net_inner_layers = [128, 128, 128] 
 net_activation_inner = "tanh"
 
 model = BNN_model.BNN_model(net_training_size=net_training_size, net_inner_layers=net_inner_layers, net_input_dim=net_input_dim, net_activation_inner=net_activation_inner)
