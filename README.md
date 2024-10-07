@@ -14,7 +14,7 @@ Example of a Bayesian Neural Network for amplitudes regression
 
 ## About the project
 This project is an example of a Bayesian Neural Network (BNN) applied to a regression problem in High Energy Physics, in particular to predict the amplitudes of scateering events. Unlike traditional NNs that provide point estimates, BNNs offer a probabilistic approach by estimating a distribution over the network's weights, allowing for more robust predictions and uncertainty quantification. This makes BNNs ideal for tasks like amplitude regression, where precise modeling of particle interactions and scattering amplitudes is essential for accurate physical predictions and analysis.
-The dataset can be found at https://drive.google.com/drive/folders/1Y4EjCt3qJl13nhqCtXCHGlKVLNv5GlyS?usp=sharing .
+The dataset can be found at https://drive.google.com/drive/folders/1Y4EjCt3qJl13nhqCtXCHGlKVLNv5GlyS?usp=sharing . In the following examples, the dataset used is "ddx_Z2g".
 
 For additional ML referencies: Gal, Yarin. “Uncertainty in Deep Learning.” (2016). 
 
