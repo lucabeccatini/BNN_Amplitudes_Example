@@ -69,15 +69,15 @@ We define the predictive mean as:
 ```math
 \mu_i = \frac{1}{N} \sum_j^N \mu_{i, j} \quad .
 ```
-The predictive standard deviation $\sigma_i$​ is defined as the combination of two sources of uncertainty: model uncertainty, $\sigma_{model_i}$, ​and stochastic uncertainty, $\sigma_{stoch_i}$. The model and stochastic uncertainty are respectively defined as:
+The predictive standard deviation $\sigma_i$​ is defined as the combination of two sources of uncertainty: model uncertainty, $\sigma_{pred_i}$, ​and stochastic uncertainty, $\sigma_{model_i}$. The model and stochastic uncertainty are respectively defined as:
 ```math
-\sigma_{model_i} = \frac{1}{N} \sum_j^N (\mu_{i} - \mu_{i, j})^2
+\sigma_{pred_i} = \frac{1}{N} \sum_j^N (\mu_{i} - \mu_{i, j})^2
 ```
 ```math
-\sigma_{stoch_i} = \frac{1}{N} \sum_j^N \sigma_{i,j}^2 \quad .
+\sigma_{model_i} = \sqrt{\frac{1}{N} \sum_j^N \sigma_{i,j}^2} \quad .
 ```
-$\sigma_{model_i}$ represents the statical uncertainty in the prediction. It vanishes in the limit of perfect trainig.
-$\sigma_{stoch_i}$ represents the systematic uncertainty in the prediction. It can reflect poor or noisy training data, non-optimal network architecture choice or hyper parameters tuning. In the limit of perfect training it approaches a plateau. 
+$\sigma_{pred_i}$ represents the statical uncertainty in the prediction. It vanishes in the limit of perfect trainig.
+$\sigma_{model_i}$ represents the systematic uncertainty in the prediction. It can reflect poor or noisy training data, non-optimal network architecture choice or hyper parameters tuning. In the limit of perfect training it approaches a plateau. 
 
 
 
@@ -125,8 +125,15 @@ Similarly, the accuracy plot shows a big difference between the "50k" model and 
 \
 In the following table we observe the resume of the results achieved by each model. As we said, this table shows that the accuracy tends to improve with the increase lenght of the dataset and to converge to a given value. Moreover, both uncertainties tend to improve (decrese) with the increasing of the training lenght. For the model (statistical) uncertainty this is expected because, a larger training dataset implies a better training. For the stochastic (systematic) uncertainty, since the model are identical, this can be associated with improvemnt of the data quality, due to more populated phase-space. 
 \
-<img src="Images/BNN_Dataset_table.png" align="center" width="600" height="auto"/>
 
+```markdown
+| Dataset | $|\Delta| < 10^{-2}$ | $|\Delta| < 10^{-3}$ | $<\sigma_{pred}>$ | $<\sigma_{mod}>$ | 
+| ------- | -------------------- | -------------------- | ----------------- | ---------------- |
+| $50\,000$ | $18.30\%$ | $1.85\%$ | $3.33 \cdot 10^{-3}$ | $2.22 \cdot 10^{-3}$ | 
+| $100\,000$ | $75.20\%$ | $12.00\%$ | $1.12 \cdot 10^{-3}$ | $4.70 \cdot 10^{-4}$ | 
+| $200\,000$ | $88.80\%$ | $20.70\%$ | $7.56 \cdot 10^{-4}$ | $1.41 \cdot 10^{-4}$ | 
+| $400\,000$ | $91.84\%$ | $36.14\%$ | $7.21 \cdot 10^{-4}$ | $6.53 \cdot 10^{-5}$ | 
+```
 
 ### Data boost augmentation test
 Here we test data augmentation through physical information. We know that scattering events are invariant under boost transformation along the beam axis and rotation around it. We applied a random boost and a random rotation to each event to obtain aumented events with the same amplitudes.
@@ -145,4 +152,11 @@ In the accuracy plots, we can observe that the "400" model has a similar accurac
 \
 Finally, in the following table, we observe that similarly to the accuracy, also the uncertainties tend to improve for augmented dataset, suggesting that the applied transformation tends to populate also less populated regions, similarly to sample additionally events.
 \
-<img src="Images/BNN_DataBoost_table.png" align="center" width="600" height="auto"/>
+
+```markdown
+| Dataset | $|\Delta| < 10^{-2}$ | $|\Delta| < 10^{-3}$ | $<\sigma_{pred}>$ | $<\sigma_{mod}>$ | 
+| $50\,000$ | $18.30\%$ | $1.85\%$ | $3.33 \cdot 10^{-3}$ | $2.22 \cdot 10^{-3}$ | 
+| $100\,000$ | $75.20\%$ | $12.00\%$ | $1.12 \cdot 10^{-3}$ | $4.70 \cdot 10^{-4}$ | 
+| $200\,000$ | $88.80\%$ | $20.70\%$ | $7.56 \cdot 10^{-4}$ | $1.41 \cdot 10^{-4}$ | 
+| $400\,000$ | $91.84\%$ | $36.14\%$ | $7.21 \cdot 10^{-4}$ | $6.53 \cdot 10^{-5}$ | 
+```
